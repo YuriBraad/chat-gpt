@@ -334,6 +334,26 @@ function renderAgenda() {
     .join("");
   const container = document.getElementById("agenda-items");
 
+  function renderAgendaList() {
+    const list = document.getElementById("agenda-list");
+    list.innerHTML = "";
+    getEvents().forEach((event) => {
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = `
+        <strong>${event.name}</strong>
+        <div class="small">${formatDate(event.date)} · ${event.repeat}</div>
+        <div class="small">Verwachting: ${event.items
+          .map((item) => {
+            const product = getProducts().find((entry) => entry.id === item.productId);
+            return `${product ? product.name : "Onbekend"} (${item.quantity})`;
+          })
+          .join(", ")}</div>
+      `;
+      list.appendChild(card);
+    });
+  }
+
   function addItemRow() {
     const row = document.createElement("div");
     row.className = "grid-2";
@@ -353,56 +373,48 @@ function renderAgenda() {
     container.appendChild(row);
   }
 
-  document.getElementById("add-agenda-item").addEventListener("click", () => {
+  const addButton = document.getElementById("add-agenda-item");
+  addButton.onclick = () => {
     addItemRow();
-  });
+  };
 
-  addItemRow();
+  const form = document.getElementById("agenda-form");
+  if (form.dataset.bound !== "true") {
+    form.dataset.bound = "true";
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const formData = new FormData(event.target);
+      const items = [];
+      const rows = container.querySelectorAll(".grid-2");
+      rows.forEach((row) => {
+        const productId = row.querySelector("select").value;
+        const quantity = Number(row.querySelector("input").value || 0);
+        if (productId) {
+          items.push({ productId, quantity });
+        }
+      });
+      const events = getEvents();
+      events.push({
+        id: uid(),
+        name: formData.get("name"),
+        date: formData.get("date"),
+        repeat: formData.get("repeat"),
+        items
+      });
+      setEvents(events);
+      event.target.reset();
+      container.innerHTML = "";
+      addItemRow();
+      renderAgendaList();
+      alert("Evenement opgeslagen!");
+    });
+  }
 
-  document.getElementById("agenda-form").addEventListener("submit", (event) => {
-    event.preventDefault();
-    const formData = new FormData(event.target);
-    const items = [];
-    const rows = container.querySelectorAll(".grid-2");
-    rows.forEach((row) => {
-      const productId = row.querySelector("select").value;
-      const quantity = Number(row.querySelector("input").value || 0);
-      if (productId) {
-        items.push({ productId, quantity });
-      }
-    });
-    const events = getEvents();
-    events.push({
-      id: uid(),
-      name: formData.get("name"),
-      date: formData.get("date"),
-      repeat: formData.get("repeat"),
-      items
-    });
-    setEvents(events);
-    event.target.reset();
-    container.innerHTML = "";
+  if (container.children.length === 0) {
     addItemRow();
-    alert("Evenement opgeslagen!");
-  });
+  }
 
-  const list = document.getElementById("agenda-list");
-  list.innerHTML = "";
-  getEvents().forEach((event) => {
-    const card = document.createElement("div");
-    card.className = "card";
-    card.innerHTML = `
-      <strong>${event.name}</strong>
-      <div class="small">${formatDate(event.date)} · ${event.repeat}</div>
-      <div class="small">Verwachting: ${event.items
-        .map((item) => {
-          const product = getProducts().find((entry) => entry.id === item.productId);
-          return `${product ? product.name : "Onbekend"} (${item.quantity})`;
-        })
-        .join(", ")}</div>
-    `;
-    list.appendChild(card);
-  });
+  renderAgendaList();
 }
 
 function renderSettings() {
