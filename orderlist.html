@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Voorstellen &amp; bestellijst</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-page="orderlist">
+    <header>
+      <div>
+        <h1>Voorstellen &amp; bestellijst</h1>
+        <p class="small">Bekijk voorstellen en beheer je bestellijst met redenen.</p>
+      </div>
+      <nav>
+        <a href="index.html" data-page="dashboard">Dashboard</a>
+        <a href="inventory.html" data-page="inventory">Inventaris</a>
+        <a href="inventory-entry.html" data-page="inventory-entry">Inventaris invoer</a>
+        <a href="agenda.html" data-page="agenda">Agenda</a>
+        <a href="orderlist.html" data-page="orderlist">Voorstellen &amp; bestellijst</a>
+        <a href="settings.html" data-page="settings">Instellingen</a>
+      </nav>
+    </header>
+
+    <main>
+      <section>
+        <h2>Voorstellen</h2>
+        <div id="suggestions" class="card-list"></div>
+        <button id="apply-suggestions" class="secondary">Voeg voorstellen toe aan bestellijst</button>
+      </section>
+
+      <section>
+        <h2>Bestellijst</h2>
+        <div id="orderlist" class="card-list"></div>
+        <p><strong>Totale prijs:</strong> <span id="orderlist-total">€ 0,00</span></p>
+      </section>
+
+      <section>
+        <h2>Handmatig toevoegen</h2>
+        <form id="order-form">
+          <div>
+            <label for="order-product">Product</label>
+            <select id="order-product" name="order-product" required></select>
+          </div>
+          <div>
+            <label for="order-quantity">Aantal</label>
+            <input id="order-quantity" name="order-quantity" type="number" min="1" step="1" required />
+          </div>
+          <div>
+            <label for="order-reason">Reden</label>
+            <input id="order-reason" name="order-reason" placeholder="Bijv. extra voorraad" />
+          </div>
+          <button type="submit">Toevoegen</button>
+        </form>
+      </section>
+    </main>
+
+    <footer>Voorstellen houden rekening met minimum en agenda.</footer>
+    <script src="app.js"></script>
+  </body>
+</html>
