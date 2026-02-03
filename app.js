@@ -1,19 +1,76 @@
-const storage = {
-  get(key, fallback) {
-    const raw = localStorage.getItem(key);
-    if (!raw) {
-      return fallback;
-    }
+function createStorage() {
+  const memoryStore = new Map();
+
+  function storageAvailable(storage) {
     try {
-      return JSON.parse(raw);
+      const testKey = "__inventory_test__";
+      storage.setItem(testKey, "ok");
+      storage.removeItem(testKey);
+      return true;
     } catch (error) {
-      return fallback;
+      return false;
     }
-  },
-  set(key, value) {
-    localStorage.setItem(key, JSON.stringify(value));
   }
-};
+
+  const backends = [
+    { name: "localStorage", store: window.localStorage },
+    { name: "sessionStorage", store: window.sessionStorage }
+  ];
+
+  const activeBackend = backends.find((backend) => storageAvailable(backend.store));
+
+  function getRaw(key) {
+    if (activeBackend) {
+      return activeBackend.store.getItem(key);
+    }
+    return memoryStore.get(key) ?? null;
+  }
+
+  function setRaw(key, value) {
+    if (activeBackend) {
+      activeBackend.store.setItem(key, value);
+      return;
+    }
+    memoryStore.set(key, value);
+  }
+
+  function showStorageWarning() {
+    if (activeBackend) {
+      return;
+    }
+    const notice = document.createElement("div");
+    notice.className = "notice";
+    notice.innerHTML = `
+      <strong>Let op:</strong>
+      <span class="small">Je browser blokkeert opslag. Gegevens worden alleen tijdelijk bewaard.</span>
+    `;
+    const target = document.querySelector("main");
+    if (target) {
+      target.prepend(notice);
+    }
+  }
+
+  return {
+    backendName: activeBackend ? activeBackend.name : "memory",
+    get(key, fallback) {
+      const raw = getRaw(key);
+      if (!raw) {
+        return fallback;
+      }
+      try {
+        return JSON.parse(raw);
+      } catch (error) {
+        return fallback;
+      }
+    },
+    set(key, value) {
+      setRaw(key, JSON.stringify(value));
+    },
+    showStorageWarning
+  };
+}
+
+const storage = createStorage();
 
 const keys = {
   products: "inventory_products",
@@ -565,6 +622,7 @@ ensureDefaults();
 
 document.addEventListener("DOMContentLoaded", () => {
   setActiveNav();
+  storage.showStorageWarning();
   const page = document.body.dataset.page;
   if (page === "dashboard") {
     renderDashboard();
