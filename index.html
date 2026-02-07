@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Horeca Inventaris Dashboard</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-page="dashboard">
+    <header>
+      <div>
+        <h1>Inventaris Dashboard</h1>
+        <p class="small">Overzicht van voorraad, bestellijst en evenementen.</p>
+      </div>
+      <nav>
+        <a href="index.html" data-page="dashboard">Dashboard</a>
+        <a href="inventory.html" data-page="inventory">Inventaris</a>
+        <a href="inventory-entry.html" data-page="inventory-entry">Inventaris invoer</a>
+        <a href="agenda.html" data-page="agenda">Agenda</a>
+        <a href="orderlist.html" data-page="orderlist">Voorstellen &amp; bestellijst</a>
+        <a href="settings.html" data-page="settings">Instellingen</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="grid-2">
+        <div>
+          <h2>Totale voorraad</h2>
+          <p><strong id="product-count">0</strong> producten</p>
+          <p><strong id="item-count">0</strong> stuks totaal</p>
+        </div>
+        <div class="notice">
+          <h3>Tip</h3>
+          <p class="small">
+            Gebruik de inventaris invoer om producten toe te voegen. De agenda helpt om verwachte
+            consumptie mee te nemen in je bestelvoorstellen.
+          </p>
+        </div>
+      </section>
+
+      <section>
+        <h2>Bestellijst (huidig)</h2>
+        <div id="orderlist-items" class="card-list"></div>
+        <p><strong>Totale prijs:</strong> <span id="orderlist-total">€ 0,00</span></p>
+      </section>
+
+      <section>
+        <h2>Opkomende evenementen</h2>
+        <div id="event-list" class="card-list"></div>
+      </section>
+    </main>
+
+    <footer>Inventaris systeem voor horeca · lokaal opgeslagen</footer>
+    <script src="./app.js" defer></script>
+  </body>
+</html>

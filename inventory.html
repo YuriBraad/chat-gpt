@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inventaris overzicht</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-page="inventory">
+    <header>
+      <div>
+        <h1>Inventaris overzicht</h1>
+        <p class="small">Rood = onder minimum, oranje = bijna minimum, groen = voldoende.</p>
+      </div>
+      <nav>
+        <a href="index.html" data-page="dashboard">Dashboard</a>
+        <a href="inventory.html" data-page="inventory">Inventaris</a>
+        <a href="inventory-entry.html" data-page="inventory-entry">Inventaris invoer</a>
+        <a href="agenda.html" data-page="agenda">Agenda</a>
+        <a href="orderlist.html" data-page="orderlist">Voorstellen &amp; bestellijst</a>
+        <a href="settings.html" data-page="settings">Instellingen</a>
+      </nav>
+    </header>
+
+    <main>
+      <section>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Categorie</th>
+              <th>Aantal</th>
+              <th>Minimum</th>
+              <th>Status</th>
+              <th>Acties</th>
+            </tr>
+          </thead>
+          <tbody id="inventory-body"></tbody>
+        </table>
+      </section>
+    </main>
+
+    <footer>Gebruik +/- om snel bij te werken.</footer>
+    <script src="./app.js" defer></script>
+  </body>
+</html>

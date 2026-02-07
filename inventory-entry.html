@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inventaris invoer</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-page="inventory-entry">
+    <header>
+      <div>
+        <h1>Inventaris invoer</h1>
+        <p class="small">Voeg nieuwe producten toe met minimum en categorie.</p>
+      </div>
+      <nav>
+        <a href="index.html" data-page="dashboard">Dashboard</a>
+        <a href="inventory.html" data-page="inventory">Inventaris</a>
+        <a href="inventory-entry.html" data-page="inventory-entry">Inventaris invoer</a>
+        <a href="agenda.html" data-page="agenda">Agenda</a>
+        <a href="orderlist.html" data-page="orderlist">Voorstellen &amp; bestellijst</a>
+        <a href="settings.html" data-page="settings">Instellingen</a>
+      </nav>
+    </header>
+
+    <main>
+      <section>
+        <form id="inventory-form">
+          <div>
+            <label for="name">Productnaam</label>
+            <input id="name" name="name" required />
+          </div>
+          <div>
+            <label for="category">Categorie</label>
+            <select id="category" name="category"></select>
+            <p id="category-helper" class="small"></p>
+          </div>
+          <div>
+            <label for="category-units">Aantal categorie-eenheden</label>
+            <input id="category-units" type="number" min="0" step="1" />
+            <p class="small">Laat leeg als je direct stuks wilt invoeren.</p>
+          </div>
+          <div>
+            <label for="quantity">Aantal stuks</label>
+            <input id="quantity" name="quantity" type="number" min="0" step="1" required />
+          </div>
+          <div>
+            <label for="min">Minimum voorraad</label>
+            <input id="min" name="min" type="number" min="0" step="1" required />
+          </div>
+          <div>
+            <label for="price">Prijs per stuk (€)</label>
+            <input id="price" name="price" type="number" min="0" step="0.01" />
+          </div>
+          <button type="submit">Product toevoegen</button>
+        </form>
+      </section>
+    </main>
+
+    <footer>Gebruik categorieën om automatisch aantallen te vullen.</footer>
+    <script src="./app.js" defer></script>
+  </body>
+</html>

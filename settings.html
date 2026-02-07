@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Instellingen</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-page="settings">
+    <header>
+      <div>
+        <h1>Instellingen</h1>
+        <p class="small">Categorieën bepalen automatische aantallen.</p>
+      </div>
+      <nav>
+        <a href="index.html" data-page="dashboard">Dashboard</a>
+        <a href="inventory.html" data-page="inventory">Inventaris</a>
+        <a href="inventory-entry.html" data-page="inventory-entry">Inventaris invoer</a>
+        <a href="agenda.html" data-page="agenda">Agenda</a>
+        <a href="orderlist.html" data-page="orderlist">Voorstellen &amp; bestellijst</a>
+        <a href="settings.html" data-page="settings">Instellingen</a>
+      </nav>
+    </header>
+
+    <main>
+      <section>
+        <h2>Categorieën</h2>
+        <div id="category-list" class="card-list"></div>
+      </section>
+
+      <section>
+        <h2>Nieuwe categorie</h2>
+        <form id="category-form">
+          <div>
+            <label for="category-name">Naam</label>
+            <input id="category-name" name="name" required />
+          </div>
+          <div>
+            <label for="category-multiplier">Aantal stuks per categorie</label>
+            <input id="category-multiplier" name="multiplier" type="number" min="1" step="1" required />
+          </div>
+          <button type="submit">Categorie toevoegen</button>
+        </form>
+      </section>
+    </main>
+
+    <footer>Minima kun je per product aanpassen in de inventaris.</footer>
+    <script src="./app.js" defer></script>
+  </body>
+</html>

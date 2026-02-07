@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agenda</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-page="agenda">
+    <header>
+      <div>
+        <h1>Agenda &amp; verwachtingen</h1>
+        <p class="small">Plan evenementen en verwachte consumptie.</p>
+      </div>
+      <nav>
+        <a href="index.html" data-page="dashboard">Dashboard</a>
+        <a href="inventory.html" data-page="inventory">Inventaris</a>
+        <a href="inventory-entry.html" data-page="inventory-entry">Inventaris invoer</a>
+        <a href="agenda.html" data-page="agenda">Agenda</a>
+        <a href="orderlist.html" data-page="orderlist">Voorstellen &amp; bestellijst</a>
+        <a href="settings.html" data-page="settings">Instellingen</a>
+      </nav>
+    </header>
+
+    <main>
+      <section>
+        <h2>Nieuw evenement</h2>
+        <form id="agenda-form">
+          <div>
+            <label for="event-name">Naam</label>
+            <input id="event-name" name="name" required />
+          </div>
+          <div class="grid-2">
+            <div>
+              <label for="event-date">Datum</label>
+              <input id="event-date" name="date" type="date" required />
+            </div>
+            <div>
+              <label for="event-repeat">Herhaling</label>
+              <select id="event-repeat" name="repeat">
+                <option value="Eenmalig">Eenmalig</option>
+                <option value="Wekelijks">Wekelijks</option>
+                <option value="Maandelijks">Maandelijks</option>
+              </select>
+            </div>
+          </div>
+
+          <h3>Verwachte consumptie</h3>
+          <div id="agenda-items" class="card-list"></div>
+          <button type="button" class="secondary" id="add-agenda-item">Nog een product</button>
+          <button type="submit">Opslaan</button>
+        </form>
+      </section>
+
+      <section>
+        <h2>Geplande evenementen</h2>
+        <div id="agenda-list" class="card-list"></div>
+      </section>
+    </main>
+
+    <footer>Check voorstellen om voorraadtekorten op te lossen.</footer>
+    <script src="./app.js" defer></script>
+  </body>
+</html>
